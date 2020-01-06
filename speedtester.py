@@ -14,14 +14,14 @@ threads = None
 # If you want to use a single threaded test
 # threads = 1
 
-arguments = len(sys.argv)
-
 verbose = False
 
-for i in range(1, arguments):
+for i in range(1, len(sys.argv)):
     current = sys.argv[i]
     if current == "-v" or current == "--verbose":
         verbose = True
+    else:
+        print("Flag not recognised: ", sys.argv[i])
 
 def perform_test(verbose=False):
     verbose = True
@@ -83,7 +83,7 @@ def perform_test(verbose=False):
 if verbose:
     print("adding schedule task")
 
-schedule.every(10).seconds.do(perform_test, verbose = True)
+schedule.every(10).minutes.do(perform_test, verbose = True)
 
 while True:
     schedule.run_pending()

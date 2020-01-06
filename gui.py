@@ -5,25 +5,37 @@ Created on Sun Sep  1 12:03:56 2019
 
 @author: tasty
 """
-print('importing')
 from grapher import networkData
 from PyQt5.QtWidgets import QApplication, QLabel, QComboBox, QWidget, QVBoxLayout
 from PyQt5.QtCore import QCoreApplication
 import sys
 
-print('initialising')
+verbose = False
+for i in range(1, len(sys.argv)):
+    current = sys.argv[i]
+    if current == "-v" or current == "--verbose":
+        verbose = True
+    else:
+        print("Flag not recognised: ", sys.argv[i])
+
+if verbose:
+    print('initialising')
 app = QApplication([])
-print('initialised app')
+if verbose:
+    print('initialised app')
 data = networkData()
-print('initialised data')
+if verbose:
+    print('initialised data')
 window = QWidget()
-print('initialised window')
-print('program initialised')
-print('setting layout')
+if verbose:
+    print('initialised window')
+    print('program initialised')
+    print('setting layout')
 layout = QVBoxLayout()
 
 layout.addWidget(QLabel('Program to graph network speeds and ping times'))
-print('Added label')
+if verbose:
+    print('Added label')
 
 QComboBox()
 ssids = QComboBox()
