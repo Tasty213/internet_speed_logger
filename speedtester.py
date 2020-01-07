@@ -5,8 +5,7 @@ import time
 import subprocess
 import schedule
 import sys
-from os.path import expanduser, exists
-from os import makedirs
+from os.path import exists
 
 servers = []
 # If you want to test against a specific server
@@ -76,9 +75,9 @@ def perform_test(verbose=False):
             print("failed to connect")
             print("saving: ", total)
 
-        output = open('output.csv','a')
-        output.write(total)
-        output.close()
+        #output = open('output.csv','a')
+        #output.write(total)
+        #output.close()
 
     if verbose:
         print("finished test")
@@ -87,7 +86,7 @@ def perform_test(verbose=False):
 if verbose:
     print("adding schedule task")
 
-schedule.every(1).second.do(perform_test, verbose = True)
+schedule.every(10).minutes.do(perform_test, verbose = True)
 
 while True:
     schedule.run_pending()

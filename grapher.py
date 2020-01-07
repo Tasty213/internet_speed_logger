@@ -1,11 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
+from os.path import expanduser
+
+save_location = expanduser('~') + '/.network_speed_log.csv'
 
 class networkData:
     def __init__(self):
-        print('working')
-        history = pd.read_csv('dummy.csv', header = None, names = ["time", "ping", "upload", "download" ,"ssid"])
+        history = pd.read_csv(save_location, header = None, names = ["time", "ping", "upload", "download" ,"ssid"])
         history.fillna('0', inplace = True)
         networks = history['ssid'].unique()
 
@@ -33,17 +35,16 @@ class networkData:
         self.dataNaN = dataNaN
         self.ssids = list(data.keys())
 
-    def plotter(self, ssid):
+    def plotter(self, ssid, metric):
         if ssid in self.ssids:
-            for i in self.data[ssid].columns:
+            if metric in ['ping', 'download', 'upload']:
                 plt.figure()
-                title = 'Graph of ' + str(i) + ' over time for SSID ' + str(ssid)
+                title = 'Graph of ' + str(metric) + ' over time for SSID ' + str(ssid)
                 plt.title(title)
                 plt.xlabel('Time')
-                plt.ylabel(i)
-                self.data[ssid][i].plot()
-                plt.show()
-                print(title)
+                plt.ylabel(metric)
+                self.data[ssid][metric].plot()
+                plt.savefig('.temp_display.png')
 
 #### Run this only if the file has been run directly
 
