@@ -6,7 +6,7 @@ Created on Sun Sep  1 12:03:56 2019
 @author: tasty
 """
 from grapher import networkData
-from PyQt5.QtWidgets import QApplication, QLabel, QComboBox, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QLabel, QComboBox, QWidget, QVBoxLayout, QPushButton
 from PyQt5.QtCore import QCoreApplication
 import sys
 
@@ -45,6 +45,9 @@ layout.addWidget(ssids)
 metrics = QComboBox()
 metrics.addItems(data.data[data.ssids[0]].columns)
 layout.addWidget(metrics)
+
+button = QPushButton('PyQt5 button')
+layout.addWidget(button)
 
 window.setLayout(layout)
 window.show()

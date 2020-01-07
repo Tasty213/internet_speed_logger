@@ -28,14 +28,6 @@ class networkData:
             data[i].set_index('time', inplace = True)
             data[i].drop(['level_0', 'index'],axis = 1, inplace = True)
             dataNaN[i] = data[i].resample('5T').asfreq()
-        print(data.keys())
-        print(dataNaN)
-        for i in data.keys():
-            pass
-            #print('\n\n',i)
-            #print(data[i])
-        #del data['0']
-        #del dataNaN['0']
 
         self.data = data
         self.dataNaN = dataNaN
@@ -56,4 +48,5 @@ class networkData:
 #### Run this only if the file has been run directly
 
 if sys.argv[0] == 'grapher.py':
-    networkData()
+    data = networkData()
+    data.plotter(data.ssids[0])
