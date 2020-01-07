@@ -1,10 +1,12 @@
-#! /home/tasty/speedtester/bin/python
+#! /home/tasty/speedtest/bin/python
 
 import speedtest
 import time
 import subprocess
 import schedule
 import sys
+from os.path import expanduser, exists
+from os import makedirs
 
 servers = []
 # If you want to test against a specific server
@@ -13,6 +15,8 @@ servers = []
 threads = None
 # If you want to use a single threaded test
 # threads = 1
+
+home = expanduser('~')
 
 verbose = False
 
@@ -57,7 +61,7 @@ def perform_test(verbose=False):
         if verbose:
             print("saving: ", total)
 
-        output = open('output.csv','a')
+        output = open(home + '/.network_speed_log.csv','a')
         output.write(total)
         output.close()
 
@@ -83,7 +87,7 @@ def perform_test(verbose=False):
 if verbose:
     print("adding schedule task")
 
-schedule.every(10).minutes.do(perform_test, verbose = True)
+schedule.every(1).second.do(perform_test, verbose = True)
 
 while True:
     schedule.run_pending()
